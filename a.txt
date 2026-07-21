@@ -1,0 +1,148 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2026-07-17T06:58:00Z"
+  generation: 93
+  name: myapp
+  namespace: argocd
+  resourceVersion: "12539"
+  uid: 92c891f9-6521-48f3-bd12-7e01b6243f59
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: .
+    repoURL: https://github.com/sihyuk11/helm.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+status:
+  conditions:
+  - lastTransitionTime: "2026-07-21T06:44:24Z"
+    message: |-
+      Failed to load target state: failed to generate manifest for source 1 of 1: rpc error: code = Unknown desc = Manifest generation error (cached): failed to execute helm template command: failed running helm: `helm template . --name-template myapp --namespace default --kube-version 1.36.2 <api versions removed> --include-crds` failed exit status 1: Error: template: myapp1/templates/service.yaml:4:11: executing "myapp1/templates/service.yaml" at <include "myapp1.fullname" .>: error calling include: template: no template "myapp1.fullname" associated with template "gotpl"
+
+      Use --debug flag to render out invalid YAML
+    type: ComparisonError
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-07-17T07:32:07Z"
+    status: Healthy
+  history:
+  - deployStartedAt: "2026-07-17T06:58:01Z"
+    deployedAt: "2026-07-17T06:58:01Z"
+    id: 0
+    initiatedBy:
+      automated: true
+    revision: a52deb3465d3f03fd8fa3581efeefbd9b529df7a
+    source:
+      path: .
+      repoURL: https://github.com/sihyuk11/helm.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-07-17T07:18:54Z"
+    deployedAt: "2026-07-17T07:18:54Z"
+    id: 1
+    initiatedBy:
+      automated: true
+    revision: fb4e29b5eeb77cb2ede91f1b681a81a59cb10ac8
+    source:
+      path: .
+      repoURL: https://github.com/sihyuk11/helm.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-07-17T07:32:06Z"
+    deployedAt: "2026-07-17T07:32:06Z"
+    id: 2
+    initiatedBy:
+      automated: true
+    revision: bca31b621785ba54e5633165cbe884584bba1fb3
+    source:
+      path: .
+      repoURL: https://github.com/sihyuk11/helm.git
+      targetRevision: HEAD
+  operationState:
+    finishedAt: "2026-07-17T07:32:06Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        autoHealAttemptsCount: 1
+        prune: true
+        resources:
+        - kind: Service
+          name: myapp
+        - group: apps
+          kind: Deployment
+          name: myapp
+        revision: bca31b621785ba54e5633165cbe884584bba1fb3
+        source:
+          path: .
+          repoURL: https://github.com/sihyuk11/helm.git
+          targetRevision: HEAD
+    phase: Succeeded
+    startedAt: "2026-07-17T07:32:06Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/myapp unchanged
+        name: myapp
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - sihyuk11/jenkins:v4
+        kind: Deployment
+        message: deployment.apps/myapp unchanged
+        name: myapp
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: bca31b621785ba54e5633165cbe884584bba1fb3
+      source:
+        path: .
+        repoURL: https://github.com/sihyuk11/helm.git
+        targetRevision: HEAD
+  reconciledAt: "2026-07-21T06:58:42Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: Service
+    name: myapp
+    namespace: default
+    requiresPruning: true
+    status: Unknown
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: myapp
+    namespace: default
+    requiresPruning: true
+    status: Unknown
+    version: v1
+  sourceHydrator: {}
+  summary:
+    images:
+    - sihyuk11/jenkins:v4
+  sync:
+    comparedTo:
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      source:
+        path: .
+        repoURL: https://github.com/sihyuk11/helm.git
+        targetRevision: HEAD
+    revision: HEAD
+    status: Unknown
